@@ -1,17 +1,11 @@
-const express = require("express");
+import express from "express";
+import data from "./data.json" assert { type: "json" };
 const app = express();
 const port = 3000;
 
 app.use("/", express.static("public"));
 
-const budget = {
-  myBudget: [
-    { title: "Eat Out", budget: 30 },
-    { title: "Rent", budget: 350 },
-    { title: "Groceries", budget: 90 },
-  ],
-};
-
+const budget = data;
 app.get("/hello", (req, res) => {
   res.send("Hello World");
 });

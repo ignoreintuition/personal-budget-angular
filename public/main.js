@@ -1,4 +1,15 @@
 const ctx = document.getElementById("myChart");
+const colors = [
+  "#ea5545",
+  "#f46a9b",
+  "#ef9b20",
+  "#edbf33",
+  "#ede15b",
+  "#bdcf32",
+  "#87bc45",
+  "#27aeef",
+  "#b33dc6",
+];
 
 const getBudget = async () => {
   const res = await axios.get("/budget");
@@ -17,11 +28,7 @@ const config = {
       {
         data,
         label: "Budget",
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-        ],
+        backgroundColor: colors,
         hoverOffset: 4,
       },
     ],

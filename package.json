@@ -1,5 +1,6 @@
 {
   "name": "@resurgence/personal-budget1",
+  "type": "module",
   "version": "1.0.0",
   "description": "The path to NGInx main folder: /usr/share/nginx/html",
   "main": "server.js",
