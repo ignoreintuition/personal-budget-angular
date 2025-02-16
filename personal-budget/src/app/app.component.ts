@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeroComponent } from './hero/hero.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'pb-root',
