@@ -5,10 +5,8 @@ import data from "./data.json" assert { type: "json" };
 const app = express();
 const port = 3000;
 
-app.use(cors);
-
-app.get("/budget", (req, res) => {
-  res.json(budget);
+app.get("/budget", cors(), (req, res) => {
+  res.json(data);
 });
 
 app.listen(port, () => {
