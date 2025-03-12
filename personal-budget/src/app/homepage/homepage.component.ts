@@ -15,8 +15,9 @@ import { Subscription } from 'rxjs';
 })
 export class HomepageComponent implements OnInit {
   d3chart = async (res: any) => {
-    const data = res?.myBudget.map((d: any) => ({
+    const data = res?.map((d: any) => ({
       budget: d.budget,
+      color: d.color,
       title: d.title,
     }));
     const width = 300,
@@ -32,17 +33,6 @@ export class HomepageComponent implements OnInit {
       .append('g')
       .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-    const colors = [
-      '#ea5545',
-      '#f46a9b',
-      '#ef9b20',
-      '#edbf33',
-      '#ede15b',
-      '#bdcf32',
-      '#87bc45',
-      '#27aeef',
-      '#b33dc6',
-    ];
     const pie = d3.pie<any>().value((d: any) => Number(d.budget));
     const data_ready = pie(data);
     svg
@@ -58,7 +48,9 @@ export class HomepageComponent implements OnInit {
           endAngle: d.endAngle,
         } as any),
       )
-      .attr('fill', (d, i) => colors[i])
+      .attr('fill', (d, i) => {
+        return res[i].color;
+      })
       .attr('stroke', '#121926')
       .style('stroke-width', '1px');
 
@@ -78,17 +70,6 @@ export class HomepageComponent implements OnInit {
       .style('font-size', 15);
   };
 
-  colors = [
-    '#ea5545',
-    '#f46a9b',
-    '#ef9b20',
-    '#edbf33',
-    '#ede15b',
-    '#bdcf32',
-    '#87bc45',
-    '#27aeef',
-    '#b33dc6',
-  ];
   config: ChartConfiguration = {
     type: 'doughnut',
     data: {
@@ -97,7 +78,6 @@ export class HomepageComponent implements OnInit {
         {
           data: [],
           label: 'Budget',
-          backgroundColor: this.colors,
           hoverOffset: 4,
         },
       ],
@@ -109,9 +89,10 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getData();
     this.dataService.data$.subscribe((res: any) => {
-      this.config.data.labels = res?.myBudget.map((d: any) => d.title);
-      this.config.data.datasets[0].data = res?.myBudget.map(
-        (d: any) => d.budget,
+      this.config.data.labels = res?.map((d: any) => d.title);
+      this.config.data.datasets[0].data = res?.map((d: any) => d.budget);
+      this.config.data.datasets[0].backgroundColor = res?.map(
+        (d: any): any => d.color,
       );
       const c = document.getElementById('myCanvas') as HTMLCanvasElement;
       const ctx = <CanvasRenderingContext2D>c.getContext('2d');
